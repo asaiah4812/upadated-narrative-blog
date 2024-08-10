@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.urls import reverse
 from taggit.managers import TaggableManager
 from django_ckeditor_5.fields import CKEditor5Field
-
+from django.utils.text import slugify
 # Create your models here.
 
 class PublishedManager(models.Manager):
@@ -58,6 +58,10 @@ class Articles(models.Model):
         indexes = [
             models.Index(fields=['-publish']),
             ]
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        return super().save(*args, **kwargs)
         
     def __str__(self):
         return f"{self.title} by {self.author}"

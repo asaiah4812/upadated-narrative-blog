@@ -58,6 +58,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -91,13 +92,13 @@ WSGI_APPLICATION = 'narrative_site.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dreamer_articles',
-        'USER': 'root',
-        'PASSWORD': 'nazaya21',
-        'HOST': '127.0.0.1',
-        'PORT': '3306', 
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "defaultdb",
+        "USER":"avnadmin",
+        "PASSWORD": "AVNS_J8LaiM6-Sq-SyahbZzr",
+        "HOST": "pg-1cdbb942-hensonasaiah21-9e30.d.aivencloud.com",
+        "PORT": "18489",
     }
 }
 
@@ -137,11 +138,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-MEDIA_URL = 'images/'
+MEDIA_URL = 'media/'
 
 STATICFILE_DIRS = BASE_DIR/'static'
 STATIC_ROOT = BASE_DIR/'staticfiles'
-MEDIA_ROOT = BASE_DIR/'static/images'
+MEDIA_ROOT = BASE_DIR/'media/'
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
