@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load article_tags %}
+{% load static %}
+{% block title %}Home page{% endblock %}
+{% block content %}
+
+    <section class="searcher" id="articles">
+      <div class="searcher__left">
+        <h1>Narrative</h1>
+        <p>
+          Your Number One Source for All Tech-Related News, In-Depth
+          Tutorials, and Valuable Insights. We're Committed to Providing You
+          with the Very Best Content, Enriched by Community Standards and
+          Expertise. Get Ready to Dive into the World of Django Excellence!
+        </p>
+        <div class="searcher__btn">
+          <a href="{% url 'articles:create_article' %}">Submit Project</a>
+          <a href="{% url 'articles:all_articles' %}">Read articles</a>
+        </div>
+      </div>
+      <div class="illustration">
+        <img src="{% static '/images/illustration.png' %}" alt="illustration" />
+      </div>
+    </section>
+
+    <section class="latest">
+      <h2>Latest  Articles</h2>
+      <P>Read the latest from Narrative</P>
+    </section>
+
+     <section class="article__section" >
+      {% for article in articles %}
+      <article class="articles">
+        <button>DJANGO</button>
+        <h2>{{article.title}}</h2>
+        <p>
+          {{article.content|truncatewords_html:37|safe}}
+        </p>
+        <div class="articles__readmore">
+          <a href="{{ article.get_absolute_url }}">Read more <i class="bx bx-chevrons-right"></i></a>
+          <span>{{article.publish|naturaltime}}</span>
+        </div>
+      </article>
+      {% endfor %}
+    </section>
+     <div class="view-all">
+      <button title="view all"><a href="{% url 'articles:all_articles' %}">View all</a></button>
+    </div>
+
+{% endblock %}

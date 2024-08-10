@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load article_tags %}
+{% load static %}
+{% block title %}Home page{% endblock %}
+{% block content %}
+
+    <section class="searcher" id="articles">
+      <div class="searcher__left container">
+        <div class="emoji">😕</div>
+        <h1>Narrative</h1>
+        <p>We couldn't find the page you were looking for. Maybe try searching the site or going back to the homepage.</p>
+        <a href="{% url 'articles:articles_list' %}">Go to Homepage</a>
+      </div>
+    </section>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Edit page{% endblock %}
+{% block content %}
+
+<section class="edit">
+        <h1>Edit Your account</h1>
+        <p>You can edit your account using the following form:</p>
+        <form action="" method="POST" enctype="multipart/form-data" class="edit__form">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+            <button type="submit">Save Changes</button>
+        </form>
+    </section>
+
+    {% endblock %}

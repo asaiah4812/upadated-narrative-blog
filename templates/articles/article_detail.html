@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+{% load article_tags %}
+{% load humanize %}
+{% load static %}
+{% block title %}{{article.title}}{% endblock %}
+{% block content %}
+    <!-- Page Content --> 
+
+    <style>
+      .detail__articles pre{
+        background: rgb(27, 27, 27);
+        padding: 2rem;
+        border-radius: 10px;
+        code{
+          color: aliceblue;
+        }
+      }
+    </style>
+
+    <section class="detail__articles">
+      <h1>
+        {{ article.title }}
+      </h1>
+
+      <div class="profile" onmouseover="display()" onmouseleave="noDisplay()">
+        <img src="{{ article.author.profile.photo.url }}" alt="" />
+        <div class="text__profile">
+          <h4>{{article.author}} . <strong> Follow </strong></h4>
+          <span>{{article.publish|naturaltime}} read | {{article.publish|naturalday}}</span>
+        </div>
+        <div class="hover">
+          <div class="text__profile">
+            <img src="{{ article.author.profile.photo.url }}" alt="" />
+            <span>{{ article.author.username }}</span><br/>
+          </div>
+          <div class="text">
+
+            {% if request.user.username == author.username %}
+              <a href="#"><i class="fa-solid fa-user-plus"></i> Edit Article</a>
+            <a href="#"><i class="fa-solid fa-user"></i> Edit Profile</a>
+            {% else %}
+            <a href="#"><i class="fa-solid fa-user-plus"></i> Follow</a>
+            <a href="{% url 'profile' username=article.author.username %}"><i class="fa-solid fa-user"></i> View Profile</a>
+            {% endif %}
+          </div>
+        </div>
+      </div> 
+      <div class="detail__appreciate">
+        <div class="detail__left" id="like-container">
+          <a  class="clap" href=""> 
+            <i class="fa-solid fa-hands-clapping"></i>
+             <span>{{ article.likes.count }}</span> </a>
+          <a href="#comment">
+            <i class="fa-regular fa-comment"></i>
+          </a>
+        </div>
+        <div class="detail__right">
+          <a href="#"><i class="fa-solid fa-bookmark"></i></a>
+          <a href="{% url 'articles:article_share' article.id %}"><i class="fa-solid fa-share-from-square"></i></a>
+          <a href="#"><i class="fa-solid fa-ellipsis-vertical"></i></a>
+        </div>
+      </div>
+      <div class="detail__image">
+        <!-- Assuming you have a variable named 'article' in your template context -->
+          {% if article.image %}
+              <img src="{{ article.image.url }}" alt="Article Image">
+            {% else %}
+                <p>No image available</p>
+          {% endif %}
+        <p >
+         {{article.content|markdown|safe}}
+        </p>
+
+        <h3>Why Next.Js and Django?</h3>
+
+        <p>
+          While many web frameworks are available, both Next.js and Django are
+          popular for web development due to their ease of use, flexibility, and
+          robust feature sets. Next.js is a React-based framework that allows
+          developers to build server-side rendered (SSR) and static websites
+          easily. It provides a simple, intuitive development experience with
+          automatic code splitting and optimized performance. Next.js also
+          offers features such as file-based routing, API routes, and static
+          site generation (SSG), which makes it an ideal choice for building
+          modern web applications that require high-performance, SEO-friendly,
+          and scalable front-ends. Django is a full-stack Python-based framework
+          that provides an excellent toolset for building web applications.
+          Django provides a powerful and flexible Object-Relational Mapping
+          (ORM) system that allows developers to easily manage their data and a
+          built-in admin panel that makes it easy to manage the application's
+          Backend. Django also provides robust security features, such as CSRF
+          protection and password hashing, making it a safe choice for building
+          web applications. The combination of Next.js and Django offers a
+          powerful development stack for building modern, scalable, and secure
+          web applications. By using Next.js for the Frontend and Django for the
+          Backend, developers can take advantage of the strengths of both
+          frameworks to create a seamless, high-performance web application. For
+          example, Next.js can handle the front-end routing, page transitions,
+          and client-side interactions, while Django can manage the backend API
+          endpoints, database management, and server-side rendering of pages.
+          This allows for a clear separation of concerns between the
+          application's front-end and back-end, making the codebase more
+          maintainable and easier to scale.
+        </p>
+        <!-- detail reference -->
+        <h5>References</h5>
+        <span>
+          Cabezas, I., Segovia, R., Caratozzolo, P., & Webb, E. (2020). Using
+          Software Engineering Design Principles as Tools for Freshman Students
+          Learning. 2020 IEEE Frontiers in Education Conference (FIE).
+          <a href="#">https://doi.org/10.1109/fie44824.2020.9274177</a>
+        </span>
+      </div>
+        <div class="comment__section">
+        <div class="comment-session">
+          <div class="post-comment">
+            {% for comment in comments %}
+            <div class="comment-list" id="comment">
+              <div class="flex">
+                <div class="user">
+                  <div class="user-image">
+                    <img src="{% static '/images/Asaiah Henson.jpg' %}" alt="">
+                  </div>
+                  <div class="user-media">
+                    <div class="name">Asaiah</div>
+                    <div class="day">{{comment.created|naturaltime}}</div>
+                  </div>
+                </div>
+                <div class="reply">
+                  {% with comments.count as total_comments %}
+                  <div class="lick icon">
+                    {{ total_comments }} comment{{ total_comments|pluralize }}
+                  </div>
+                  {% endwith %}
+                  
+                  <div class="dislick icon"><i class="fa-solid fa-thumbs-up"></i></div>
+                  <div class="dislick icon"><i class="fa-solid fa-thumbs-down"></i></div>
+                  <div class="re-comment">Reply</div>
+                </div>
+              </div>
+              <div class="comment">
+                <p class="info">
+                Comment {{ forloop.counter }} by {{ comment.name }}
+                {{ comment.created }}
+                </p>
+                {{ comment.body|linebreaks|safe }}
+              </div>
+            </div>
+            {% empty %}
+            <p class="text">There are no comments.</p>
+            {% endfor %}
+            {% include 'includes/comment_form.html' %}
+          </div>
+        </div> 
+      </div>
+      <div class="profile__end">
+        <div class="profile__left">
+          <img src="{% static '/images/Asaiah Henson.jpg' %}" alt="" />
+          <h3>Written by {{user.username}}</h3>
+          <span>5 followers</span>
+        </div>
+        <div class="profile__right">
+          <a href="#">Follow</a>
+          <a href="#"><i class="fa-solid fa-envelope-open-text"></i></a>
+        </div>
+      </div>
+      <div class="detail__more">
+        <h4>Similar posts</h4>
+        <div class="more__projects">
+          {% for post in similar_articles %}
+          <div class="more__card">
+            <img class="more__imgage" src="{{ post.image.url }}" alt="" />
+            <div class="more__image">
+              <img src="{% static '/images/Asaiah Henson.jpg' %}" alt="" />
+              <span>Asaiah Henson</span>
+            </div>
+            <h3>{{post.title}}</h3>
+            <span>
+              {{post.content|truncatewords:20|safe }}
+            </span>
+            <small>{{article.publish|naturaltime}}</small>
+            <div class="detail__appreciate">
+              <div class="detail__left">
+                <a href="#"> <i class="fa-solid fa-hands-clapping"></i> 1 </a>
+                <a href="#">
+                  <i class="fa-regular fa-comment"></i>
+                </a>
+              </div>
+              <div class="detail__right">
+                <a href="#"><i class="fa-solid fa-bookmark"></i></a>
+                <a href="#"><i class="fa-solid fa-share-from-square"></i></a>
+                <a href="#"><i class="fa-solid fa-ellipsis-vertical"></i></a>
+              </div>
+            </div>
+          </div>
+          {% empty %}
+         <h5 class="similar__articles">No Similar Articles Found!</h5> 
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+   {% endblock %}

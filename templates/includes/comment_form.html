@@ -1,0 +1,13 @@
+{% load static %}
+
+<form action="{% url 'articles:article_comment' article.id %}" method="POST" class="comment-box">
+  <div class="user">
+    <div class="image">
+      <img src="{% static '/images/Asaiah Henson.jpg' %}" alt="" />
+    </div>
+    <div class="name"><span>Asaiah Henson</span></div>
+  </div>
+  {{ form.as_p }}
+   {% csrf_token %}
+  <button type="submit" class="comment-submit">Post Comment</button>
+</form>

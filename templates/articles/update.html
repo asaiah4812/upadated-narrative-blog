@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home page{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<style>
+    .create_form{
+      height: 100vh;
+      padding: 2rem 5%;
+      gap: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .create_form button{
+        margin-top: 6rem;
+        background: rgb(195, 195, 235);
+        color: black;
+        border-radius: 10px;
+        outline: none;
+        border: none;
+        margin-top: 1rem;
+        padding: 1rem;
+    }
+</style>
+
+<section class="create_form">
+
+    <form action="" method="POST" novalidate enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form|crispy}}
+        {{ form.media}}
+        <button type="submit">Create Article</button>
+    </form>
+
+</section>
+
+{% endblock %}

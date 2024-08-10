@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load article_tags %}
+{% load humanize %}
+{% load static %}
+{% block title %}Home page{% endblock %}
+{% block content %}
+
+
+  <section onclick="" class="search" id="articles">
+      <h1>All Articles</h1>
+      <form method="get" class="search__input ">
+        <input type="text" name="title" placeholder="Search articles" />
+        <button><i class="bx bxs-search"></i></button>
+      </form>
+    </section>
+
+     <section class="article__section" >
+      <!-- {% if tag %}
+      <h2>Articles tagged with "{{ tag.name }}"</h2>
+      {% endif %} -->
+        {% for article in articles %}
+      <article class="articles">
+          <!-- {% for tag in article.tags.all %}
+            <a style="text-decoration: none;" href="{% url 'articles:articles_list_by_tag' tag.slug %}">{{ tags.name }}</a>
+            {% if not forloop.last %},{% endif %}
+          {% endfor %} -->
+        <h2>{{article.title}}</h2>
+        <p>
+          {{article.content|markdown|truncatewords:37|safe}}
+        </p>
+        <div class="articles__readmore">
+          <a href="{{ article.get_absolute_url }}">Read more <i class="bx bx-chevrons-right"></i></a>
+          <span>{{article.publish|naturaltime}}</span>
+        </div>
+      </article>
+      {% empty %}
+      <h1 style="text-align: center; color: #afafaf;">No Article with That Name...</h1>
+      {% endfor %}
+    </section>
+    <div class="container  text-center my-5 mx-auto flex items-center">
+      {%  include 'includes/pagination.html' with page=articles %}
+    </div>
+   
+
+{% endblock %}

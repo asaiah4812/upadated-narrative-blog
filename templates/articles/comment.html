@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Comment Page {% endblock %}
+
+
+{% block content %}
+
+ {% if comment %}
+ <section style="margin-top: 10rem;" class="comment__success">
+     <h2>Your comment has been added.</h2>
+     <p><a href="{{ post.get_absolute_url }}">Back to the post</a></p>
+</section>
+     {% else %}
+
+    {% include 'includes/comment_form.html' with form=form %}
+ {% endif %}
+{% endblock %}

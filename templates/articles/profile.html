@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load article_tags %}
+{% load humanize %}
+{% load static %}
+{% block title %}{{ author.username }}{% endblock %}
+{% block content %}
+ <style>
+    .contents{
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        padding: 0.5rem;
+    }
+    .flexy{
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 2rem;
+    }
+  </style>
+
+  <!-- Profile Page Content -->
+
+   <section class="profile__section">
+    <div class="prof">
+        {% if user_profile.photo %}
+        <img src="{{ user_profile.photo.url }}" alt="Profile Picture"/>
+        {% else %}
+        <img src="{% static 'images/profile.jpg' %}" alt="profile picture">
+        {% endif %}
+        <div class="prof__title">
+            <h4>{{ user_profile.user.username }}</h4>
+            <p>
+                {{ user_profile.bio }}
+            </p>
+            <span>Followers</span>
+        </div>
+    </div>
+        <div class="social__lin">
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="#"><i class="fa-brands fa-dribbble"></i></a>
+            <a href="#"><i class="fa-brands fa-square-behance"></i></a>
+            <a href="#"><i class="fa-brands fa-upwork"></i></a>
+            <a href="#"><i class="fa-brands fa-github"></i></a>
+        </div>
+        <div class="flexy">
+
+    {% for article in user_articles %}
+            <div class="contents">
+                
+                <h4>{{ article.title }}</h4>
+                <a class="lins" href="{{ article.get_absolute_url }}">
+                    {{ article.content|safe|truncatewords:20 }}
+                </a>
+                <span>{{article.publish}}</span>
+                <p>Improve Pyodide code maintainability and add a persistent data layer with PouchDB.</p>
+                <div class="clip">
+                    <a href="#"><i class="fa-solid fa-tags"></i></a>
+                    <span>api</span>
+                    <span>django</span>
+                    <span>django rest framework</span>
+                </div>
+
+            </div>
+        {% endfor %}
+
+
+        </div>
+   </section>
+
+{% endblock %}

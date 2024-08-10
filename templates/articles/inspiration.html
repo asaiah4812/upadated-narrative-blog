@@ -1,0 +1,102 @@
+  {% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+{% block title %}Inspiration page{% endblock %}
+{% block content %}
+  <section class="inspiration" id="articles">
+      <h1>All Articles</h1>
+      <p>You can Inspire developers with your projects here by uploading them Here!</p>
+      <div class="inspiration__links">
+       <a href="#"><i class='bx bx-shield-alt-2' ></i> POPULAR</a>
+       <a href="#"><i class='bx bx-pulse'></i> LATEST</a>
+       <a href="#"><i class='bx bx-dice-4'></i> RANDOM</a>
+      </div>
+    </section>
+
+    <section class="inspiration__wrapper">
+        <div class="content">
+            <div class="content__img">
+                <img src="{% static 'images/content3.png' %}" alt="">
+            </div>
+            <div class="content__detail">
+                <span>OPEN SOURCE</span>
+                <h3>Fashion</h3>
+                <p>
+                    Compare hotel prices from
+                    hundreds of travel sites and get great deals. …
+                </p>
+                <a href="#">Know More <i class="bx bx-chevrons-right"></i></a>
+            </div>
+        </div>
+        <div class="content">
+            <div class="content__img">
+                <img src="{% static 'images/content1.png' %}" alt="">
+            </div>
+            <div class="content__detail">
+                <span>OPEN SOURCE</span>
+                <h3>Resturant</h3>
+                <p>
+                    Compare hotel prices from
+                    hundreds of travel sites and get great deals. …
+                </p>
+                <a href="#">Know More <i class="bx bx-chevrons-right"></i></a>
+            </div>
+        </div>
+        <div class="content">
+            <div class="content__img">
+                <img src="{% static 'images/content2.png' %}" alt="">
+            </div>
+            <div class="content__detail">
+                <span>OPEN SOURCE</span>
+                <h3>Trivago</h3>
+                <p>
+                    Compare hotel prices from
+                    hundreds of travel sites and get great deals. …
+                </p>
+                <a href="#">Know More <i class="bx bx-chevrons-right"></i></a>
+            </div>
+        </div>
+        <div class="content">
+            <div class="content__img">
+                <img src="{% static 'images/content4.png' %}" alt="">
+            </div>
+            <div class="content__detail">
+                <span>OPEN SOURCE</span>
+                <h3>Trivago</h3>
+                <p>
+                    Compare hotel prices from
+                    hundreds of travel sites and get great deals. …
+                </p>
+                <a href="#">Know More <i class="bx bx-chevrons-right"></i></a>
+            </div>
+        </div>
+        <div class="content">
+            <div class="content__img">
+                <img src="{% static 'images/content5.png' %}" alt="">
+            </div>
+            <div class="content__detail">
+                <span>OPEN SOURCE</span>
+                <h3>Trivago</h3>
+                <p>
+                    Compare hotel prices from
+                    hundreds of travel sites and get great deals. …
+                </p>
+                <a href="#">Know More <i class="bx bx-chevrons-right"></i></a>
+            </div>
+        </div>
+        <div class="content">
+            <div class="content__img">
+                <img src="{% static 'images/content6.png' %}" alt="">
+            </div>
+            <div class="content__detail">
+                <span>OPEN SOURCE</span>
+                <h3>Trivago</h3>
+                <p>
+                    Compare hotel prices from
+                    hundreds of travel sites and get great deals. …
+                </p>
+                <a href="#">Know More <i class="bx bx-chevrons-right"></i></a>
+            </div>
+        </div>
+    </section>
+    {% endblock %}

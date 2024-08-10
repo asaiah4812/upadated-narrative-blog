@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load article_tags %}
+{% load humanize %}
+{% load static %}
+{% block title %}{{article.title}}{% endblock %}
+{% block content %}
+    <!-- Page Content --> 
+
+    <style>
+        .inspiration__wrapper{
+            gap: 1rem;
+        }
+    </style>
+
+  
+    <section class="search" id="articles">
+      <h1>Featured books</h1>
+      <form method="POST" class="search__input ">
+        {% csrf_token %}
+        <input type="text" name="text" placeholder="Search Books" />
+        <button><i class="bx bxs-search"></i></button>
+      </form>
+    </section>
+
+    <section class="inspiration__wrapper">
+        {% for result in results %}
+        <div class="content">
+            <div class="content__img">
+                <img style="object-fit: cover; max-height: 300px;" src="{{ result.thumbnail }}" alt="">
+            </div>
+            <div class="content__detail">
+                <span>OPEN SOURCE</span>
+                <h3>{{ result.title }}</h3>
+                    <p>By {{ result.subtitle }}</p>
+                <a href="{{ result.preview }}" target="_blank">Know More <i class="bx bx-chevrons-right"></i></a>
+            </div>
+        </div>
+        {% endfor %}
+    </section>
+   {% endblock %}
